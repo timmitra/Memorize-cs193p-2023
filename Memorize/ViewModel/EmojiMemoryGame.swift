@@ -11,12 +11,19 @@
 
 import SwiftUI
 
-struct EmojiMemoryGame: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+func createCardContent(forPairAtIndex index: Int) -> String {
+    return ["👻", "🎃", "🤖", "👽", "👾", "😈", "💀", "☠️", "😱", "💩", "🍭", "🧙‍♀️"][index]
 }
 
-#Preview {
-    EmojiMemoryGame()
+class EmojiMemoryGame {
+    private var model = MemoryGame(numberOfPairsOfCards: 4, cardContentFactory: createCardContent)
+    
+    var cards: Array<MemoryGame <String>.Card> {
+        return model.cards
+    }
+    
+    func choose(_ card: MemoryGame<String>.Card) {
+        model.choose(card)
+    }
+
 }

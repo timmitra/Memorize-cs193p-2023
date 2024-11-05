@@ -9,19 +9,14 @@
 // Copyright © 2024 iT Guy Technologies. All rights reserved.
 
 
-import Foundation
+import SwiftUI
 
-struct MemorizeGame<CardContent> {
-    var cards: Array<Card>
-    
-    func choose(card: Card) {
-        
+struct EmojiMemoryGame: View {
+    var body: some View {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
-    
-    /// internal struct is really MemorizeGame.Card
-    struct Card {
-        var isFaceUp: Bool
-        var isMatched: Bool
-        var content: CardContent
-    }
+}
+
+#Preview {
+    EmojiMemoryGame()
 }

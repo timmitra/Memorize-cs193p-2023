@@ -23,7 +23,8 @@ struct MemoryGame<CardContent> {
         // cards = [Card]()
         cards = [] /// swift infers that this is empty array of Card
         // add numberOfPairsOfCards x 2 cards
-        for pairIndex in 0..<numberOfPairsOfCards {
+        // max at least 2
+        for pairIndex in 0..<max(2, numberOfPairsOfCards) {
             let content = cardContentFactory(pairIndex) // create the cardContent
             cards.append(Card(content: content))
             cards.append(Card(content: content))

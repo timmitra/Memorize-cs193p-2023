@@ -13,13 +13,19 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     
-    var viewModel: EmojiMemoryGame = EmojiMemoryGame()
+    @ObservedObject var viewModel: EmojiMemoryGame
         
     @State var cardCount: Int = 4
     
     var body: some View {
-        ScrollView {
-            cards
+        VStack {
+            ScrollView {
+                cards
+            }
+            /// viewModel.shuffle() is a user intent
+            Button("Shuffle") {
+                viewModel.shuffle()
+            }
         }
         .padding()
     }
@@ -63,5 +69,6 @@ struct CardView: View {
 }
 
 #Preview {
-    EmojiMemoryGameView()
+    /// add viewModel w/EmojiMemoryGame() for preview
+    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
 }

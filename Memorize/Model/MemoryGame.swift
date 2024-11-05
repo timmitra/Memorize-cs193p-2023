@@ -35,9 +35,15 @@ struct MemoryGame<CardContent> {
         
     }
     
+    /// need to mark mutating, since it will copy on write.
+    mutating func shuffle() {
+        cards.shuffle()
+        print(cards)
+    }
+    
     /// nested struct is really MemorizeGame.Card
     struct Card {
-        var isFaceUp = false
+        var isFaceUp = true
         var isMatched = false
         let content: CardContent
     }

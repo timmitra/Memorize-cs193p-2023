@@ -11,9 +11,10 @@
 
 import SwiftUI
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     /// Cannot use instance member 'emojis' within property initializer; property initializers run before 'self' is available.
     /// Make it static so that it's initialized first as a global, it's now "EmojiMemoryGame.emojis", and make it private so not global outside.
+    /// ObservableObject has hidden var objectWillChange, use it by adding @Published and @ObservedObject
     private static let emojis = ["👻", "🎃", "🤖", "👽", "👾", "😈", "💀", "☠️", "😱", "💩", "🍭", "🧙‍♀️"]
     
     /// make this func static so it's also init'd first.
@@ -22,7 +23,7 @@ class EmojiMemoryGame {
     /// "emojis" can be used here in static func without the long name "EmojiMemoryGame.emojis"
     /// private so only we can create a memo ry game
     private static func createMemoryGame() -> MemoryGame<String> {
-        return MemoryGame(numberOfPairsOfCards: 4) { pairIndex in
+        return MemoryGame(numberOfPairsOfCards: 6) { pairIndex in
             if emojis.indices.contains(pairIndex) {
                 return emojis[pairIndex]
             } else {
@@ -32,10 +33,16 @@ class EmojiMemoryGame {
     }
     
     /// don't need "EmojiMemoryGame.createMemoryGame" since it's inside a global func
-    private var model = createMemoryGame()
+    @Published private var model = createMemoryGame()
     
     var cards: Array<MemoryGame <String>.Card> {
         return model.cards
+    }
+    
+    // MARK: - Intents
+    
+    func shuffle() {
+        model.shuffle()
     }
     
     func choose(_ card: MemoryGame<String>.Card) {

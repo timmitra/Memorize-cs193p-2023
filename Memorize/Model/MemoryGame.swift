@@ -35,20 +35,13 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
        // print("chose that \(card)")
         /// can't just toggle, card is an argument
         /// Cannot use mutating member on immutable value: 'card' is a 'let' constant
-        if let chosenIndex = index(of: card) {
+        if let chosenIndex = cards.firstIndex(where: { cardToCheck in
+            cardToCheck.id == card.id
+        }) {
             cards[chosenIndex].isFaceUp.toggle()
         }
     }
-    
-    private func index(of card: Card) -> Int? {
-        for index in cards.indices {
-            if cards[index].id == card.id {
-                return index
-            }
-        }
-        return nil
-    }
-    
+        
     /// need to mark mutating, since it will copy on write.
     mutating func shuffle() {
         cards.shuffle()

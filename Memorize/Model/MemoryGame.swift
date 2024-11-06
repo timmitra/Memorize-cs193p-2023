@@ -43,10 +43,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     /// nested struct is really MemorizeGame.Card
     struct Card: Equatable {
-        static func == (lhs: Card, rhs: Card) -> Bool {
-            return lhs.isFaceUp == rhs.isFaceUp && lhs.isMatched == rhs.isMatched && lhs.content == rhs.content
-        }
-        
         var isFaceUp = true
         var isMatched = false
         let content: CardContent

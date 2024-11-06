@@ -11,7 +11,7 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent> where CardContent: Equatable {
     /// private(set) means others can only "get" cards
     private(set) var cards: Array<Card>
     
@@ -38,11 +38,15 @@ struct MemoryGame<CardContent> {
     /// need to mark mutating, since it will copy on write.
     mutating func shuffle() {
         cards.shuffle()
-        print(cards)
+       // print(cards)
     }
     
     /// nested struct is really MemorizeGame.Card
-    struct Card {
+    struct Card: Equatable {
+        static func == (lhs: Card, rhs: Card) -> Bool {
+            return lhs.isFaceUp == rhs.isFaceUp && lhs.isMatched == rhs.isMatched && lhs.content == rhs.content
+        }
+        
         var isFaceUp = true
         var isMatched = false
         let content: CardContent

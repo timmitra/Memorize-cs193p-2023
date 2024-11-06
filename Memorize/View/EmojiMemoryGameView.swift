@@ -20,7 +20,9 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack {
             ScrollView {
+                /// to animate, cards need to be Equatable
                 cards
+                    .animation(.default, value: viewModel.cards)
             }
             /// viewModel.shuffle() is a user intent
             Button("Shuffle") {

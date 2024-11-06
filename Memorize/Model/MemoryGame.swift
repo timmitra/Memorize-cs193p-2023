@@ -26,8 +26,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         // max at least 2
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {
             let content = cardContentFactory(pairIndex) // create the cardContent
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(content: content, id: "\(pairIndex+1)a"))
+            cards.append(Card(content: content, id: "\(pairIndex+1)b"))
         }
     }
     
@@ -42,9 +42,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     /// nested struct is really MemorizeGame.Card
-    struct Card: Equatable {
+    struct Card: Equatable, Identifiable {
         var isFaceUp = true
         var isMatched = false
         let content: CardContent
+        var id: String
     }
 }

@@ -16,14 +16,13 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
         
     @State var cardCount: Int = 4
+    private let aspectRatio: CGFloat = 2/3
     
     var body: some View {
         VStack {
-            //ScrollView {
-                /// to animate, cards need to be Equatable
-                cards
-                    .animation(.default, value: viewModel.cards)
-           // }
+            /// to animate, cards need to be Equatable
+            cards
+                .animation(.default, value: viewModel.cards)
             /// viewModel.shuffle() is a user intent
             Button("Shuffle") {
                 viewModel.shuffle()
@@ -32,12 +31,13 @@ struct EmojiMemoryGameView: View {
         .padding()
     }
     
-    var cards: some View {
+    //@ViewBuilder // act as if this was a ViewBuilder
+    private var cards: some View {
         GeometryReader { geometry in
             let gridItemSize = gridItemWidthThatFits(
                 count: viewModel.cards.count,
                 size: geometry.size,
-                atAspectRatio: 2/3
+                atAspectRatio: aspectRatio
             )
             LazyVGrid(columns: [GridItem(.adaptive(minimum: gridItemSize), spacing: 0)], spacing: 0) {
                 ForEach(viewModel.cards) { card in

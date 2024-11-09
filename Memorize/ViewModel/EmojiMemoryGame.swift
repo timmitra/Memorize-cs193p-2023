@@ -23,7 +23,7 @@ class EmojiMemoryGame: ObservableObject {
     /// "emojis" can be used here in static func without the long name "EmojiMemoryGame.emojis"
     /// private so only we can create a memo ry game
     private static func createMemoryGame() -> MemoryGame<String> {
-        return MemoryGame(numberOfPairsOfCards: 6) { pairIndex in
+        return MemoryGame(numberOfPairsOfCards: 8) { pairIndex in
             if emojis.indices.contains(pairIndex) {
                 return emojis[pairIndex]
             } else {

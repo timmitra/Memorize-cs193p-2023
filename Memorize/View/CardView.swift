@@ -29,7 +29,9 @@ struct CardView: View {
                 Text(card.content)
                     .font(.system(size: 200))
                     .minimumScaleFactor(0.01)
+                    .multilineTextAlignment(.center)
                     .aspectRatio(1, contentMode: .fit)
+                    .padding(5)
             }
             .opacity(card.isFaceUp ? 1 : 0)
             base.fill()
@@ -39,9 +41,19 @@ struct CardView: View {
     }
 }
 
-#Preview("CardView macro") {
-    typealias Card = MemoryGame<String>.Card
-    return CardView(Card(content: "X", id: "test 1"))
+#Preview("CardView") {
+    typealias Card = CardView.Card // using the CardView's typealias now
+    return VStack {
+        HStack {
+            CardView(Card(isFaceUp: true, content: "X", id: "test 1"))
+                .aspectRatio(4/3, contentMode: .fit)
+            CardView(Card(content: "X", id: "test 1"))
+        }
+        HStack {
+            CardView(Card(isFaceUp: true, content: "This is a very long string that will wrap to the next line.", id: "test 1"))
+            CardView(Card(isMatched: true, content: "X", id: "test 1"))
+        }
+    }
         .padding()
         .foregroundColor(.green)
 }

@@ -12,6 +12,7 @@
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
+    typealias Card = MemoryGame<String>.Card
     /// Cannot use instance member 'emojis' within property initializer; property initializers run before 'self' is available.
     /// Make it static so that it's initialized first as a global, it's now "EmojiMemoryGame.emojis", and make it private so not global outside.
     /// ObservableObject has hidden var objectWillChange, use it by adding @Published and @ObservedObject
@@ -35,7 +36,7 @@ class EmojiMemoryGame: ObservableObject {
     /// don't need "EmojiMemoryGame.createMemoryGame" since it's inside a global func
     @Published private var model = createMemoryGame()
     
-    var cards: Array<MemoryGame <String>.Card> {
+    var cards: Array<Card> {
         return model.cards
     }
     
@@ -45,7 +46,7 @@ class EmojiMemoryGame: ObservableObject {
         model.shuffle()
     }
     
-    func choose(_ card: MemoryGame<String>.Card) {
+    func choose(_ card: Card) {
         model.choose(card)
     }
 

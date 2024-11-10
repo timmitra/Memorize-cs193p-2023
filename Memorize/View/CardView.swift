@@ -39,12 +39,9 @@ struct CardView: View {
     }
 }
 
-struct CardView_Previews: PreviewProvider {
+#Preview("CardView macro") {
     typealias Card = MemoryGame<String>.Card
-    /// Cardview needs a Card for content
-    static var previews: some View {
-        CardView(Card(content: "X", id: "test 1"))
-            .padding()
-            .foregroundColor(.green)
-    }
+    return CardView(Card(content: "X", id: "test 1"))
+        .padding()
+        .foregroundColor(.green)
 }

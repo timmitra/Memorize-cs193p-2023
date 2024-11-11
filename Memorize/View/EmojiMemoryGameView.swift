@@ -23,6 +23,7 @@ struct EmojiMemoryGameView: View {
         VStack {
             /// to animate, cards need to be Equatable
             cards
+                .foregroundColor(viewModel.color)
                 .animation(.default, value: viewModel.cards)
             /// viewModel.shuffle() is a user intent
             Button("Shuffle") {
@@ -42,7 +43,6 @@ struct EmojiMemoryGameView: View {
                     viewModel.choose(card)
                 }
         }
-        .foregroundColor(.orange)
     }
 }
 

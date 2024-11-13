@@ -24,10 +24,11 @@ struct EmojiMemoryGameView: View {
             /// to animate, cards need to be Equatable
             cards
                 .foregroundColor(viewModel.color)
-                .animation(.default, value: viewModel.cards)
             /// viewModel.shuffle() is a user intent
             Button("Shuffle") {
-                viewModel.shuffle()
+                withAnimation {
+                    viewModel.shuffle()
+                }
             }
         }
         .padding()
@@ -40,7 +41,9 @@ struct EmojiMemoryGameView: View {
             CardView(card)
                 .padding(mySpacing)
                 .onTapGesture {
-                    viewModel.choose(card)
+                    withAnimation {
+                        viewModel.choose(card)
+                    }
                 }
         }
     }

@@ -34,24 +34,28 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     /// don't need "EmojiMemoryGame.createMemoryGame" since it's inside a global func
-    @Published private var model = createMemoryGame()
+    @Published private var gameModel = createMemoryGame()
     
     var cards: Array<Card> {
-        model.cards
+        gameModel.cards
     }
     
     var color: Color {
         .orange
     }
     
+    var score: Int {
+        gameModel.score
+    }
+    
     // MARK: - Intents
     
     func shuffle() {
-        model.shuffle()
+        gameModel.shuffle()
     }
     
     func choose(_ card: Card) {
-        model.choose(card)
+        gameModel.choose(card)
     }
 
 }

@@ -13,7 +13,7 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var gameViewModel: EmojiMemoryGame
     
     @State var cardCount: Int = 4
     private let aspectRatio: CGFloat = 2/3
@@ -23,26 +23,40 @@ struct EmojiMemoryGameView: View {
         VStack {
             /// to animate, cards need to be Equatable
             cards
-                .foregroundColor(viewModel.color)
-            /// viewModel.shuffle() is a user intent
-            Button("Shuffle") {
-                withAnimation {
-                    viewModel.shuffle()
-                }
+                .foregroundColor(gameViewModel.color)
+            HStack {
+                score
+                Spacer()
+                /// viewModel.shuffle() is a user intent
+                shuffle
             }
+            .font(.title)
         }
         .padding()
+    }
+    
+    private var score: some View {
+        Text("Score: \(gameViewModel.score)")
+            .animation(nil)
+    }
+    
+    private var shuffle: some View {
+        Button("Shuffle") {
+            withAnimation {
+                gameViewModel.shuffle()
+            }
+        }
     }
     
     //@ViewBuilder // act as if this was a ViewBuilder
     private var cards: some View {
         
-        AspectVGrid(viewModel.cards, aspectRatio: aspectRatio) { card in
+        AspectVGrid(gameViewModel.cards, aspectRatio: aspectRatio) { card in
             CardView(card)
                 .padding(mySpacing)
                 .onTapGesture {
-                    withAnimation(.easeInOut(duration: 3)) {
-                        viewModel.choose(card)
+                    withAnimation {
+                        gameViewModel.choose(card)
                     }
                 }
         }
@@ -53,5 +67,5 @@ struct EmojiMemoryGameView: View {
 
 #Preview {
     /// add viewModel w/EmojiMemoryGame() for preview
-    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+    EmojiMemoryGameView(gameViewModel: EmojiMemoryGame())
 }

@@ -13,7 +13,7 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     typealias Card = EmojiMemoryGame.Card
-    @ObservedObject var gameViewModel: EmojiMemoryGame
+    @Bindable var gameViewModel: EmojiMemoryGame
     
     @State var cardCount: Int = 4
     private let aspectRatio: CGFloat = 2/3

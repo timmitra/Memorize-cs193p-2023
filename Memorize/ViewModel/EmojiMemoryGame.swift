@@ -11,7 +11,8 @@
 
 import SwiftUI
 
-class EmojiMemoryGame: ObservableObject {
+@Observable
+class EmojiMemoryGame {
     typealias Card = MemoryGame<String>.Card
     /// Cannot use instance member 'emojis' within property initializer; property initializers run before 'self' is available.
     /// Make it static so that it's initialized first as a global, it's now "EmojiMemoryGame.emojis", and make it private so not global outside.
@@ -34,7 +35,7 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     /// don't need "EmojiMemoryGame.createMemoryGame" since it's inside a global func
-    @Published private var gameModel = createMemoryGame()
+    private var gameModel = createMemoryGame()
     
     var cards: Array<Card> {
         gameModel.cards
